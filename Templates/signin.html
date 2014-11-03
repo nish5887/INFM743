@@ -6,24 +6,27 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<section class="loginform cf">
-		<form name="login" action="index_submit" method="get" accept-charset="utf-8">
+	<section class="loginform">
+		<form name="login" method="get" accept-charset="utf-8">
 
-                <li>
+
+                <br>
 					<label for="usermail">Email Id</label>
-					<input type="email" name="usermail" placeholder="yourname@email.com" required>
-				</li></br>
+					<input type="text" name="usermail" id="usermail" placeholder="yourname@email.com" required>
+				</br>
 
-                <li>
+                <br>
 					<label for="password">Password</label>
-					<input type="password" name="password" placeholder="alphanumeric password" required>
-                </li></br>
+					<input type="text" name="password" id="password" placeholder="alphanumeric password" required>
+                </br>
 
-                <li>
-					<input type="submit" value="Sign in">
-                    <label for="forgotyourpassword">Forgot you password? Click here</label>
-				</li></br>
+                <br>
+					<input type="submit" id="signin" value="Sign in">
+				</br>
 
+                <br>
+					<a id = "forgotyourpassword" href="Forgot_password.asp">Forgot your password? Click here</a>
+				</br>
 		</form>
 	</section>
 </body>
