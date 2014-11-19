@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+		<form name="login" action="/index_submit" accept-charset="utf-8">
+            <br>
+            <label for="usermail">Email Id</label>
+            <input type="text" name="usermail" id="usermail" placeholder="yourname@email.com" onfocus="clearInput(this)" required>
+			</br>
+
+            <br>
+			<label for="password">Password</label>
+			<input type="text" name="password" id="password" placeholder="alphanumeric password" onfocus="clearInput(this)" required>
+            </br>
+
+            <fieldset>
+                <legend>Gender</legend><br>
+                <input type="radio" name="sex" value="male" checked>Male<br>
+                <input type="radio" name="sex" value="female">Female</br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Sports interested in</legend><br>
+                <input type="checkbox" name="sport" value="football">Football<br>
+                <input type="checkbox" name="sport" value="basketball">Basketball<br>
+                <input type="checkbox" name="sport" value="tennis">Tennis<br>
+                <input type="checkbox" name="sport" value="badminton">Badminton<br>
+                <input type="checkbox" name="sport" value="cricket">Cricket<br>
+                </br>
+            </fieldset>
+
+            <fieldset>
+                <legend>Address</legend><br>
+                <select name="location">
+                <option value="CollegePark">College Park</option>
+                <option value="SilverSpring">Silver Spring</option>
+                <option value="Greenbelt">Greenbelt</option>
+                <option value="Arlington">Arlington</option>
+                <option value="Bethesda">Bethesda</option>
+                </select></br>
+            </fieldset>
+
+            <input type="button" id="Submit" value="Submit" onClick="handleButtonPress()"/><br>
+
+		</form>
+</body>
+</html>

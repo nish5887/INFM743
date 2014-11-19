@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login</title>
+	<title>LogIn</title>
 	<link rel="stylesheet" href="normalize.css">
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<section class="loginform">
 		<form name="login" method="get" accept-charset="utf-8">
 
 
                 <br>
 					<label for="usermail">Email Id</label>
-					<input type="text" name="usermail" id="usermail" placeholder="yourname@email.com" required>
+					<input type="text" name="usermail" id="usermail" placeholder="yourname@email.com" onfocus="clearInput(this)" required>
 				</br>
 
                 <br>
 					<label for="password">Password</label>
-					<input type="text" name="password" id="password" placeholder="alphanumeric password" required>
+					<input type="text" name="password" id="password" placeholder="alphanumeric password" onfocus="clearInput(this)" required>
                 </br>
 
                 <br>
-					<input type="submit" id="signin" value="Sign in">
+					<input type="submit" id="signin" value="SignIn">
 				</br>
 
                 <br>
-					<a id = "forgotyourpassword" href="Forgot_password.asp">Forgot your password? Click here</a>
+					<a href="/signup">New User? Click here</a>
 				</br>
 		</form>
-	</section>
 </body>
 </html>
