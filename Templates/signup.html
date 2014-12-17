@@ -1,51 +1,109 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Login</title>
-	<link rel="stylesheet" href="normalize.css">
-	<link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/css/bootstrap.css" rel="stylesheet" />
+    <link href="static/css/font-awesome.css" rel="stylesheet" />
+    <link href="static/css/custom.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
+
+
+
 <body>
-		<form name="login" action="/index_submit" accept-charset="utf-8">
-            <br>
-            <label for="usermail">Email Id</label>
-            <input type="text" name="usermail" id="usermail" placeholder="yourname@email.com" onfocus="clearInput(this)" required>
-			</br>
+<div id="signup">
 
-            <br>
-			<label for="password">Password</label>
-			<input type="text" name="password" id="password" placeholder="alphanumeric password" onfocus="clearInput(this)" required>
-            </br>
+    <div class="container">
+        <div class="row text-center  ">
+            <div class="col-md-12">
+                <br /><br />
+                <h1> Spot-A-Sport : Register</h1>
+                 <br />
+            </div>
+        </div>
 
-            <fieldset>
-                <legend>Gender</legend><br>
-                <input type="radio" name="sex" value="male" checked>Male<br>
-                <input type="radio" name="sex" value="female">Female</br>
-            </fieldset>
+        <div class="row">
+               
+                 <div class="col-md-4 col-md-offset-0 col-sm-3 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                        <strong>  New User?  Register Yourself </strong>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" name="signingupForm" action="/signingup" method="post">
+                                        <br/>
+                                        <div class="form-group input-group">
+                                            <!--<span class="input-group-addon"><i class="fa fa-circle-o-notch"  ></i></span>
 
-            <fieldset>
-                <legend>Sports interested in</legend><br>
-                <input type="checkbox" name="sport" value="football">Football<br>
-                <input type="checkbox" name="sport" value="basketball">Basketball<br>
-                <input type="checkbox" name="sport" value="tennis">Tennis<br>
-                <input type="checkbox" name="sport" value="badminton">Badminton<br>
-                <input type="checkbox" name="sport" value="cricket">Cricket<br>
-                </br>
-            </fieldset>
+                                            <input type="text" class="form-control" placeholder="Your Name" />
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
+                                            <input type="text" class="form-control" placeholder="Desired Username" />
+                                        </div>
+                                             -->
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="Your Email" onfocus="clearInput(this)" required/>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" onfocus="clearInput(this)" required/>
+                                        </div>
 
-            <fieldset>
-                <legend>Address</legend><br>
-                <select name="location">
-                <option value="CollegePark">College Park</option>
-                <option value="SilverSpring">Silver Spring</option>
-                <option value="Greenbelt">Greenbelt</option>
-                <option value="Arlington">Arlington</option>
-                <option value="Bethesda">Bethesda</option>
-                </select></br>
-            </fieldset>
+                                         <div class="form-group">
+                                            <label>Gender</label><br>
 
-            <input type="button" id="Submit" value="Submit" onClick="handleButtonPress()"/><br>
+                                                <input type="radio" name="gender" value="male" checked/>Male<br>
+                                                <input type="radio" name="gender" value="female"/>Female</br>
+                                         </div>
 
-		</form>
+                                             <label>Sports interested in</label><br>
+                                                <input type="checkbox" name="sport" id="football" value="football"/>Football<br>
+                                                <input type="checkbox" name="sport" id="basketball" value="basketball"/>Basketball<br>
+                                                <input type="checkbox" name="sport" id="tennis" value="tennis"/>Tennis<br>
+                                                <input type="checkbox" name="sport" id="badminton" value="badminton"/>Badminton<br>
+                                                <input type="checkbox" name="sport" id="cricket" value="cricket"/>Cricket<br>
+                                                </br>
+
+
+
+                                             <label>Address</label><br>
+                                                <select name="location">
+                                                    <option value="CollegePark">College Park</option>
+                                                    <option value="SilverSpring">Silver Spring</option>
+                                                    <option value="Greenbelt">Greenbelt</option>
+                                                    <option value="Arlington">Arlington</option>
+                                                    <option value="Bethesda">Bethesda</option>
+                                                </select></br><br>
+
+
+                                            <input type="submit" name="submit" value="Submit"class="btn btn-primary"/>
+                                            &nbsp
+                                            <input type="submit" name="cancel" value="Cancel" class="btn btn-primary"/>
+                                        <hr />
+
+                                    </div>
+                                </form>
+                            </div>
+                           
+                        </div>
+                 </div>
+                
+                
+        </div>
+    </div>
+
+</div>
+
+    <!-- SCRIPTS-AT THE BOTTOM TO REDUCE THE LOAD TIME-->
+    <script src="static/js/jquery-1.10.2.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery.metisMenu.js"></script>
+    <script src="static/js/custom.js"></script>
+   
 </body>
 </html>
+{% endblock %}

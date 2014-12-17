@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block body %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/css/bootstrap.css" rel="stylesheet" />
+    <link href="static/css/font-awesome.css" rel="stylesheet" />
+    <link href="static/css/custom.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+
+
+
+<body>
+<div id="signup">
+
+    <div class="container">
+        <div class="row text-center  ">
+            <div class="col-md-12">
+                <br /><br />
+                <h1>User Profile</h1>
+                 <br />
+            </div>
+        </div>
+
+        <div class="row">
+               
+                 <div class="col-md-4 col-md-offset-0 col-sm-3 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                        <strong>  Edit your profile here! </strong>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" action="/changeprofile" method="post">
+                                        <br/>
+                                        <div class="form-group input-group">
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="text" class="form-control" name="username" id="username" value={{user}} readonly/>
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                                            <input type="password" class="form-control" name="password" id="password" value={{password}}/>
+                                        </div>
+
+                                         <div class="form-group">
+                                            <label>Gender</label><br>
+                                             {% if gender=="male" %}
+                                                <input type="radio" name="gender" value="male" checked/>Male<br>
+                                                <input type="radio" name="gender" value="female"/>Female</br>
+                                             {% else %}
+                                                <input type="radio" name="gender" value="male" />Male<br>
+                                                <input type="radio" name="gender" value="female" checked/>Female</br>
+                                             {% endif %}
+                                         </div>
+
+                                             <label>Sports interested in</label><br>
+                                                {% if football=="true" %}
+                                                <input type="checkbox" name="sport" id="football" value="football" checked/>Football<br>
+                                                {% else %}
+                                                <input type="checkbox" name="sport" id="football" value="football"/>Football<br>
+                                                {% endif %}
+                                                {% if basketball=="true" %}
+                                                <input type="checkbox" name="sport" id="basketball" value="basketball" checked/>Basketball<br>
+                                                {% else %}
+                                                <input type="checkbox" name="sport" id="basketball" value="basketball"/>Basketball<br>
+                                                {% endif %}
+                                                {% if tennis=="true" %}
+                                                <input type="checkbox" name="sport" id="tennis" value="tennis" checked/>Tennis<br>
+                                                {% else %}
+                                                <input type="checkbox" name="sport" id="tennis" value="tennis"/>Tennis<br>
+                                                {% endif %}
+                                                {% if badminton=="true" %}
+                                                <input type="checkbox" name="sport" id="badminton" value="badminton" checked/>Badminton<br>
+                                                {% else %}
+                                                <input type="checkbox" name="sport" id="badminton" value="badminton"/>Badminton<br>
+                                                {% endif %}
+                                                {% if cricket=="true" %}
+                                                <input type="checkbox" name="sport" id="cricket" value="cricket" checked/>Cricket<br>
+                                                {% else %}
+                                                <input type="checkbox" name="sport" id="cricket" value="cricket" />Cricket<br>
+                                                {% endif %}
+                                                </br>
+
+
+
+                                             <label>Address</label><br>
+                                                <select name="location">
+                                                    {% if location=="CollegePark" %}
+                                                    <option selected value="CollegePark">College Park</option>
+                                                    {% else %}
+                                                    <option value="CollegePark">College Park</option>
+                                                    {% endif %}
+                                                    {% if location=="SilverSpring" %}
+                                                    <option selected value="SilverSpring">Silver Spring</option>
+                                                    {% else %}
+                                                    <option value="SilverSpring">Silver Spring</option>
+                                                    {% endif %}
+                                                    {% if location=="Greenbelt" %}
+                                                    <option selected value="Greenbelt">Greenbelt</option>
+                                                    {% else %}
+                                                    <option value="Greenbelt">Greenbelt</option>
+                                                    {% endif %}
+                                                    {% if location=="Arlington" %}
+                                                    <option selected value="Arlington">Arlington</option>
+                                                    {% else %}
+                                                    <option value="Arlington">Arlington</option>
+                                                    {% endif %}
+                                                    {% if location=="Bethesda" %}
+                                                    <option selected value="Bethesda">Bethesda</option>
+                                                    {% else %}
+                                                    <option value="Bethesda">Bethesda</option>
+                                                    {% endif %}
+                                                </select></br><br>
+
+
+                                            <input type="submit" name="submit" value="Submit"class="btn btn-success"/>
+                                            &nbsp
+                                            <input type="submit" name="cancel" value="Cancel" class="btn btn-success"/>
+                                        <hr />
+
+                                    </div>
+                                </form>
+                            </div>
+                           
+                        </div>
+                 </div>
+                
+                
+        </div>
+    </div>
+
+</div>
+
+    <!-- SCRIPTS-AT THE BOTTOM TO REDUCE THE LOAD TIME-->
+    <script src="static/js/jquery-1.10.2.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery.metisMenu.js"></script>
+    <script src="static/js/custom.js"></script>
+   
+</body>
+</html>
+{% endblock %}

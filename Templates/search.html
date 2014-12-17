@@ -1,0 +1,239 @@
+﻿{% extends "base.html" %}
+{% block body %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/css/bootstrap.css" rel="stylesheet" />
+    <link href="static/css/font-awesome.css" rel="stylesheet" />
+    <link href="static/css/custom.css" rel="stylesheet" />
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h5>
+                     <div style="color: white;
+                    padding: 15px 3px;
+                    float: right;
+                    font-size: 16px;">
+                         <div id="welcome">
+                            <p>&nbsp;Welcome {{session['username']}}!</p>
+                            </div>
+                </div></h5> <br>
+                <!--<a class="navbar-brand" href="user_dashboard.html">Welcome<br>Nishita</a>-->
+            </div>
+
+            <div style="color: white;
+                padding: 15px 50px 5px 50px;
+                float: right;
+                font-size: 16px;">
+            <div id="logout">
+    <form action="/logout" method="post">
+        <input type="submit" name="logout" class="btn btn-primary" value="Logout" />
+    </form>
+</div>
+               <!-- <a href="login.html" class="btn btn-danger square-btn-adjust">Logout</a> </div>-->
+         </div></nav>
+           <!-- /. NAV TOP  -->
+                <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="static/img/find_user.png" class="user-image img-responsive"/>
+					</li>
+
+                    <li>
+
+                        <a href="/user_dashboard"><i class="fa fa-dashboard fa-3x"></i>Dashboard</a>
+                    </li>
+                    <li  >
+                        <a href="/manageprofile"><i class="fa fa-square-o fa-3x"></i>Manage Profile</a>
+                    </li>
+                    <li  >
+                        <a href="/graph"><i class="fa fa-square-o fa-3x"></i>Analytics</a>
+                    </li>
+                    <li  >
+                        <a class="active-menu"  href="/searching"><i class="fa fa-square-o fa-3x"></i>Search</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+
+
+                    <div class="col-md-12">
+                     <h2>Your Search starts here!</h2>
+                        <!--<h5>
+                            <div id="welcome">
+                            <p>&nbsp;Welcome {{session['username']}}!</p>
+                            </div>
+                        </h5>-->
+
+                    </div>
+                </div>
+
+                 <div id="searchOrBroadcast">
+    <form name="SearchOrBroadcastForm">
+        <fieldset>
+            <label>Sport you want players for</label><br><br>
+
+            <select name="sport" id="sport">
+            <option value="football"/>Football</option>
+            <option value="basketball"/>Basketball</option>
+            <option value="tennis"/>Tennis</option>
+            <option value="badminton"/>Badminton</option>
+            <option value="cricket"/>Cricket</option>
+            </select>
+        </fieldset>
+        <br>
+        <fieldset>
+            <label>Preferred gender</label><br><br>
+            <input type="radio" name="gender" value="male" checked/>Male<br>
+            <input type="radio" name="gender" value="female"/>Female</br>
+            <input type="radio" name="gender" value="any"/>Not Particular</br>
+        </fieldset>
+        <fieldset>
+            <br>
+            <label>Preferred Location</label><br><br>
+            <select name="location" id="location">
+            <option value="CollegePark">College Park</option>
+            <option value="SilverSpring">Silver Spring</option>
+            <option value="Greenbelt">Greenbelt</option>
+            <option value="Arlington">Arlington</option>
+            <option value="Bethesda">Bethesda</option>
+            </select>
+        </fieldset>
+        <br>Give your event a unique number for broadcasting:<input type="text" name="event_id" id="event_id">
+        <br><br><input type="button" name="search" id="search" class="btn btn-primary" value="Search for players" onClick="SearchHandle()"/>
+        <input type="button" name="broadcast" id="broadcast" class="btn btn-primary" value="Broadcast to all players" onClick="BroadcastHandle()"/>
+    </form>
+</div>
+
+<div id="result">
+
+</div>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:14px 16px;border-style:solid;border-width:4px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:14px 30px;border-style:solid;border-width:4px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
+.tg .tg-0ord{text-align:center}
+.tg .tg-ifyx{background-color:#D2E4FC;text-align:center}
+.tg .tg-s6z2{text-align:center}
+.tg .tg-vn4c{background-color:#D2E4FC;text-align:center}
+</style>
+<script type="text/javascript">
+
+    function SearchHandle(){
+    var sport = document.getElementById("sport").value;
+    var gender = document.querySelector('input[name="gender"]:checked').value;
+    var location = document.getElementById("location").value;
+     $.getJSON($SCRIPT_ROOT + '/search', {
+                 sport: sport,
+                 gender: gender,
+                 location: location
+             },
+             function(data){
+
+
+            var search_result = JSON.parse(JSON.stringify(data.answer));
+            var construct_string="";
+                        for (var player in search_result)
+                 {
+                  construct_string =construct_string+
+                     "<tr>" +
+                     "<td> <input type='checkbox' name='user' value=" + player + "> </td>" +
+                     "<td class='tg-0ord'> " + player + " </td>" +
+                     "<td class='tg-0ord'> " + search_result[player].gender + " </td>" +
+                     "<td class='tg-0ord'> " + search_result[player].location + " </td>" +
+                     "</tr>"
+                 }
+
+                 $("#result").after("<form action='/sendmessagetoselectedusers' method='post'><table class='tg'>" +
+                         "<tr><th class='tg-s6z2' colspan='4'>Search Results</th></tr>" +
+                         "<tr>" +
+                         "<th class='tg-vn4c'> Select user </th>" +
+                         "<th class='tg-vn4c'> Username </th>" +
+                         "<th class='tg-vn4c'> Gender </th>" +
+                         "<th class='tg-vn4c'> Location </th>" +
+                         "</tr>" + construct_string+
+                         "</table>"+
+                         "<input type='hidden' name='location_for_invite' value='"+location+"'/>"+
+                         "<input type='hidden' name='sport_for_invite' value='"+sport+"'/>"+
+                         "&nbsp&nbsp&nbsp<input type='submit' class='btn btn-primary' name='sendmessage' value='Send Message'/>&nbsp"+
+                         "<input type='submit' class='btn btn-primary' name='cancelmessage' value='Cancel'/>"+
+                         "</form>");
+
+
+    }
+
+    );
+
+    }
+
+         function BroadcastHandle(){
+    var sport = document.getElementById("sport").value;
+    var gender = document.querySelector('input[name="gender"]:checked').value;
+    var location = document.getElementById("location").value;
+    var event_id = document.getElementById("event_id").value;
+     $.getJSON($SCRIPT_ROOT + '/broadcast', {
+                 sport: sport,
+                 gender: gender,
+                 location: location,
+                 event_id: event_id
+             },
+             function(data){
+                $("#result").append(JSON.stringify(data.answer));
+
+
+    });
+
+    }
+</script><!-- /. ROW  -->
+                 <hr />
+               
+    </div>
+
+          <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="static/js/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="static/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="static/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="static/js/custom.js"></script>
+    
+   
+</body>
+</html>
+
+{% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    {% endwith %}
+{% endblock %}

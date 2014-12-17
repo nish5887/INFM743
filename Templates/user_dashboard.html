@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+{% block body %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Spot-A-Sport</title>
+
+    <link href="static/css/bootstrap.css" rel="stylesheet" />
+    <link href="static/css/font-awesome.css" rel="stylesheet" />
+    <link href="static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="static/css/custom.css" rel="stylesheet" />
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h5>
+                     <div style="color: white;
+                    padding: 15px 3px;
+                    float: right;
+                    font-size: 16px;">
+                         <div id="welcome">
+                            <p>&nbsp;Welcome {{session['username']}}!</p>
+                            </div>
+                </div></h5> <br>
+            </div>
+  <div style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;">
+      <div id="logout">
+    <form action="/logout" method="post">
+        <input type="submit" name="logout" class="btn btn-primary" value="Logout" />
+    </form>
+</div>
+      </div>
+        </nav>
+           <!-- /. NAV TOP  -->
+                <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="static/img/find_user.png" class="user-image img-responsive"/>
+					</li>
+                    <li>
+                        <a class="active-menu"  href="/user_dashboard"><i class="fa fa-dashboard fa-3x"></i>Dashboard</a>
+                    </li>
+                    <li  >
+                        <a href="/manageprofile"><i class="fa fa-square-o fa-3x"></i>Manage Profile</a>
+                    </li>
+
+			        <li  >
+                        <a href="/graph"><i class="fa fa-bar-chart-o fa-3x"></i>Analytics</a>
+
+                    </li>
+			    <li>
+                        <a  href="/searching"><i class="fa fa-square-o fa-3x"></i>Search</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>Your Dashboard</h2>
+
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                  <hr />
+
+<br>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:14px 16px;border-style:solid;border-width:4px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:14px 30px;border-style:solid;border-width:4px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
+.tg .tg-0ord{text-align:center}
+.tg .tg-ifyx{background-color:#D2E4FC;text-align:right}
+.tg .tg-s6z2{text-align:center}
+.tg .tg-vn4c{background-color:#D2E4FC;text-align:center}
+</style>
+
+<div id="private_messages_dashboard">
+</div>
+<div id="broadcasted_messages_dashboard">
+</div>
+<div id="accepted_messages_dashboard">
+</div>
+<div id="sent_messages_dashboard">
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function(messages){
+    $.getJSON($SCRIPT_ROOT + '/get_messages', {},function(messages) {
+
+
+        var private_messages = JSON.parse(JSON.stringify(messages.p_messages));
+        var construct_string = "";
+        for (var message_id in private_messages) {
+            construct_string = construct_string +
+                    "<tr>" +
+                    "<td> <input type='checkbox' name='message_number' value=" + message_id + "> </td>" +
+                    "<td class='tg-0ord'> " + message_id + " </td>" +
+                    "<td class='tg-0ord'> " + private_messages[message_id].requester + " </td>" +
+                    "<td class='tg-0ord'> " + private_messages[message_id].gender + " </td>" +
+                    "<td class='tg-0ord'> " + private_messages[message_id].location + " </td>" +
+                    "<td class='tg-0ord'> " + private_messages[message_id].sport + " </td>" +
+                    "</tr>"
+
+        }
+
+        $("#private_messages_dashboard").after("<form action='/handleprivatemessages' method='post'><table class='tg'>" +
+                "<tr><th class='tg-s6z2' colspan='6'>Received private messages</th></tr>" +
+                "<tr>" +
+                "<th class='tg-vn4c'> Select message </th>" +
+                "<th class='tg-vn4c'> Message ID </th>" +
+                "<th class='tg-vn4c'> Sender </th>" +
+                "<th class='tg-vn4c'> Gender </th>" +
+                "<th class='tg-vn4c'> Location </th>" +
+                "<th class='tg-vn4c'> Sport </th>" +
+                "</tr>" + construct_string +
+                "</table>" +
+                "&nbsp&nbsp&nbsp<input type='submit' class='btn btn-primary' name='acceptmessage' value='Accept'/>&nbsp" +
+                "<input type='submit' class='btn btn-primary' name='denymessage' value='Deny'/>" +
+
+                "</form>");
+
+
+        var broadcasted_messages = JSON.parse(JSON.stringify(messages.b_messages));
+        var construct_string2 = "";
+        for (var message_id in broadcasted_messages) {
+            construct_string2 = construct_string2 +
+                    "<tr>" +
+                    "<td> <input type='checkbox' name='message_number' value=" + message_id + "> </td>" +
+                    "<td class='tg-0ord'> " + message_id + " </td>" +
+                    "<td class='tg-0ord'> " + broadcasted_messages[message_id].requester + " </td>" +
+                    "<td class='tg-0ord'> " + broadcasted_messages[message_id].gender + " </td>" +
+                    "<td class='tg-0ord'> " + broadcasted_messages[message_id].location + " </td>" +
+                    "<td class='tg-0ord'> " + broadcasted_messages[message_id].sport + " </td>" +
+                    "</tr>"
+        }
+
+        $("#broadcasted_messages_dashboard").after("<form action='/handlebroadcastedmessages' method='post'><table class='tg'>" +
+                "<tr><th class='tg-s6z2' colspan='6'>Received broadcasted messages</th></tr>" +
+                "<tr>" +
+                "<th class='tg-vn4c'> Select message </th>" +
+                "<th class='tg-vn4c'> Message ID </th>" +
+                "<th class='tg-vn4c'> Sender </th>" +
+                "<th class='tg-vn4c'> Gender </th>" +
+                "<th class='tg-vn4c'> Location </th>" +
+                "<th class='tg-vn4c'> Sport </th>" +
+                "</tr>" + construct_string2 +
+                "</table>" +
+                "&nbsp&nbsp&nbsp<input type='submit' class='btn btn-primary' name='acceptmessage' value='Accept'/>&nbsp" +
+                "<input type='submit' class='btn btn-primary' name='denymessage' value='Deny'/>" +
+                "</form>");
+
+        var accepted_messages = JSON.parse(JSON.stringify(messages.accepted_messages));
+        var construct_string3 = "";
+        for (var message_id in accepted_messages) {
+            construct_string3 = construct_string3 +
+                    "<tr>" +
+                    "<td> <input type='checkbox' name='message_number' value=" + message_id + "> </td>" +
+                    "<td class='tg-0ord'> " + message_id + " </td>" +
+                    "<td class='tg-0ord'> " + accepted_messages[message_id].requester + " </td>" +
+                    "<td class='tg-0ord'> " + accepted_messages[message_id].gender + " </td>" +
+                    "<td class='tg-0ord'> " + accepted_messages[message_id].location + " </td>" +
+                    "<td> " + accepted_messages[message_id].sport + " </td>" +
+                    "</tr>"
+        }
+
+        $("#accepted_messages_dashboard").after("<form action='/handleacceptedmessages' method='post'><table class='tg'>" +
+                "<tr><th class='tg-s6z2' colspan='6'>Messages you accepted</th></tr>" +
+                "<tr>" +
+                "<th class='tg-vn4c'> Select message </th>" +
+                "<th class='tg-vn4c'> Message ID </th>" +
+                "<th class='tg-vn4c'> Sender </th>" +
+                "<th class='tg-vn4c'> Gender </th>" +
+                "<th class='tg-vn4c'> Location </th>" +
+                "<th class='tg-vn4c'> Sport </th>" +
+                "</tr>" + construct_string3 +
+                "</table>" +
+                "&nbsp&nbsp&nbsp<input type='submit' class='btn btn-primary' name='denymessage' value='Deny'/>" +
+                "</form>");
+
+
+        var sent_messages = JSON.parse(JSON.stringify(messages.s_messages));
+        var construct_string4 = "";
+        for (var message_id in sent_messages) {
+            construct_string4 = construct_string4 +
+                    "<tr>" +
+                    "<td> <input type='checkbox' name='message_number' value=" + message_id + "> </td>" +
+                    "<td class='tg-0ord'> " + message_id + " </td>" +
+                    "<td class='tg-0ord'> " + sent_messages[message_id].sent_to + " </td>" +
+                    "<td class='tg-0ord'> " + sent_messages[message_id].gender + " </td>" +
+                    "<td class='tg-0ord'> " + sent_messages[message_id].location + " </td>" +
+                    "<td class='tg-0ord'> " + sent_messages[message_id].sport + " </td>" +
+                    "<td> " + sent_messages[message_id].status + " </td>" +
+                    "</tr>"
+        }
+
+        $("#sent_messages_dashboard").after("<form action='/handlesentmessages' method='post'><table class='tg'>" +
+                "<tr><th class='tg-s6z2' colspan='7'>Messages you sent</th></tr>" +
+                "<tr>" +
+                "<th class='tg-vn4c'> Select message </th>" +
+                "<th class='tg-vn4c'> Message ID </th>" +
+                "<th class='tg-vn4c'> Sent to  </th>" +
+                "<th class='tg-vn4c'> Gender </th>" +
+                "<th class='tg-vn4c'> Location </th>" +
+                "<th class='tg-vn4c'> Sport </th>" +
+                "<th class='tg-vn4c'> Request Status </th>" +
+                "</tr>" + construct_string4 +
+                "</table>" +
+                "&nbsp&nbsp&nbsp<input type='submit' class='btn btn-primary' name='cancelmessage' value='Cancel Event'/>" +
+                "</form>");
+
+
+    });
+
+});
+
+</script>
+
+
+                <br>
+
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="static/js/jquery-1.10.2.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery.metisMenu.js"></script>
+     <script src="static/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="static/js/morris/morris.js"></script>
+    <script src="static/js/custom.js"></script>
+
+
+</body>
+</html>
+{% endblock %}
