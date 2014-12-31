@@ -3,9 +3,6 @@ INFM743
 Spot a sport:
 A user can find a player, send and receive invites.
 
-# Spot A Sport
-#Team members - Nishita Jayant Rao, Anuj Shah, Pallavi Rao, Ali Iquidos
-
 
 #PACAKGES TO BE INSTALLED
 1) flask, flask.views
